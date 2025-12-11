@@ -1,14 +1,15 @@
 import React from 'react'
 import SideNav from './SideNav'
-import AllNotes from './AllNotes'
+
 import Recap from './Recap'
+import MiddleBox from './MiddleBox'
 
 const Dashboard = () => {
   return (
     <>
     <div className='bg-slate-900 min-h-screen flex gap-4  p-3'>
       <SideNav/>
-      <AllNotes/>
+      <MiddleBox/>
       <Recap/>
     </div>
     </>
