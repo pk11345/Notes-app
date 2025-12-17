@@ -1,11 +1,15 @@
 import { allNotes, NewNotes } from "./action";
 
+const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
+
 const initialState = {
     allNote : {
         id:"",
-        newnote:""
+        newnote:savedNotes
     },
-    newNote : ""
+    newNote : "",
+
+    
 }
 
 export const reducer = (state=initialState, action)=>{
@@ -20,13 +24,15 @@ export const reducer = (state=initialState, action)=>{
             break;
 
             case NewNotes:
+
             return {
                 ...state ,
                 newNote:action.payload,
                 allNote:{
                     id:"",
-                    newnote:""
-                }
+                    newnote:savedNotes
+                },
+                
             }
 
             break;

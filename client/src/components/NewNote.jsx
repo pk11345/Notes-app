@@ -6,6 +6,8 @@ import { Allnotes} from '../redux/action'
 const NewNote = () => {
 
   const [note, setNote] = useState("")
+  
+ 
 
   const dispatch = useDispatch()
 
@@ -18,7 +20,8 @@ const NewNote = () => {
           </div>
           <div className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
              <textarea onChange={(e)=>{
-              setNote(e.target.value)
+              const n = e.target.value
+              setNote(note=>[...note,n])
              }}
              value={note}
              className='bg-transparent w-full text-white p-3 text-sm font-semibold outline-none'
@@ -26,10 +29,12 @@ const NewNote = () => {
 
               <button onClick={(e)=>{
                 e.preventDefault()
-                
+                // const updatedNote = [...note,]
+                // console.log(updatedNote)
                 console.log("dispatched", dispatch(Allnotes("",note)))
                 setNote("")
-
+                localStorage.setItem("newNotes", JSON.stringify(note));
+                
               }} 
                className='text-black bg-white p-2 rounded-lg text-md'>Add</button>
             </div>
