@@ -1,6 +1,9 @@
 import { allNotes, NewNotes } from "./action";
 
 const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
+// console.log(savedNotes,"no map")
+
+
 
 const initialState = {
     allNote : {

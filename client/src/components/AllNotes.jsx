@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useSelector } from 'react-redux';
 
 const AllNotes = () => {
+
+  const [editText, setEditText] = useState("")
+  const [editId, setEditId] = useState(null)
   
   const note = useSelector(state=>state.allNote.newnote)
-    console.log(note)
+    
+    
+
+    const handleEdit =(id,text)=>{
+      setEditText(text)
+      setEditId(id)
+    }
+    const handleSave = ()=>{
+     
+       const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
+        const Edited = savedNotes.find((notes)=>notes.id===editId)
+        console.log(Edited.id,"editeed")
+    
+       const updatenote = savedNotes.map((item)=>{
+        return item.id===Edited.id ? {...item, note:editText} : item
+       })
+    
+       localStorage.setItem("newNotes",JSON.stringify(updatenote))
+
+       setEditId("")
+      }
 
   return (
     <>
@@ -24,10 +47,48 @@ const AllNotes = () => {
         </div>
       </div>
 
-        <div className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
-          <h1 className='bg-transparent w-full text-white p-3 text-sm font-semibold'
-          >{note}</h1>
-          </div>
+      
+      {note.map((t,index)=>{
+        return<> <div key={index} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
+          {editId === t.id ? (
+           <textarea
+             value={editText}
+             onChange={(e) => setEditText(e.target.value)}
+             className='bg-transparent w-full text-white p-3'
+             />
+              ) : (
+             <h1 className='text-white p-3 text-sm font-semibold'>
+                 {t.note}
+             </h1>
+               )}
+
+        {editId===t.id?<>
+          <div className='flex  justify-end gap-2'>
+          <button className='text-black bg-white p-1 rounded-lg text-sm'>Delete</button>
+
+          <button onClick={()=>{
+            handleSave()
+          }} 
+           className='text-black bg-white p-1 rounded-lg text-sm'>Save</button>
+          </div> </>
+
+          :<>
+          <div className='flex  justify-end gap-2'>
+          <button className='text-black bg-white p-1 rounded-lg text-sm'>Delete</button>
+
+          <button onClick={()=>{
+            handleEdit(t.id,t.note)
+          }}
+           className='text-black bg-white p-1 rounded-lg text-sm'>Edit</button>
+          </div>  
+          </>
+          }
+
+
+          </div>  </>
+      })}
+      
+       
     
     </>
   )
