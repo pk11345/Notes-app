@@ -1,30 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useSelector } from 'react-redux';
 
 const AllNotes = () => {
 
+  const [notes, setNotes] = useState([]);
   const [editText, setEditText] = useState("")
   const [editId, setEditId] = useState(null)
   
   // const note = useSelector(state=>state.allNote.newnote)
     
-    
+    useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("newNotes")) || [];
+    setNotes(saved);
+    }, []);
 
     const handleEdit =(id,text)=>{
       setEditText(text)
       setEditId(id)
     }
 
-    const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
-    console.log(savedNotes)
+    
+    
     const handleSave = ()=>{
-     
-       
-        const Edited = savedNotes.find((notes)=>notes.id===editId)
+        const Edited = saved.find((notes)=>notes.id===editId)
         console.log(Edited.id,"editeed")
     
-       const updatenote = savedNotes.map((item)=>{
+       const updatenote = saved.map((item)=>{
         return item.id===Edited.id ? {...item, note:editText} : item
        })
     
@@ -32,6 +34,14 @@ const AllNotes = () => {
 
        setEditId("")
       }
+
+        const handleDelete = (id) => {
+         const dltNotes = notes.filter((item)=>{
+          return item.id!==id
+         })
+         localStorage.setItem("newNotes",JSON.stringify(dltNotes))
+            window.location.reload()
+            };
 
   return (
     <>
@@ -51,7 +61,7 @@ const AllNotes = () => {
       </div>
 
       
-      {savedNotes.map((t,index)=>{
+      {notes.map((t,index)=>{
         return<> <div key={index} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
           {editId === t.id ? (
            <textarea
@@ -67,7 +77,7 @@ const AllNotes = () => {
 
         {editId===t.id?<>
           <div className='flex  justify-end gap-2'>
-          <button className='text-black bg-white p-1 rounded-lg text-sm'>Delete</button>
+          
 
           <button onClick={()=>{
             handleSave()
@@ -77,8 +87,11 @@ const AllNotes = () => {
 
           :<>
           <div className='flex  justify-end gap-2'>
-          <button className='text-black bg-white p-1 rounded-lg text-sm'>Delete</button>
+          <button className='text-black bg-white p-1 rounded-lg text-sm'>Summarize</button>
 
+          <button onClick={() => handleDelete(t.id)} 
+           className='text-black bg-white p-1 rounded-lg text-sm'>Delete</button>
+       
           <button onClick={()=>{
             handleEdit(t.id,t.note)
           }}
