@@ -1,12 +1,10 @@
 export const allNotes = "allNotes"
 export const NewNotes = "NewNotes"
 
-export const Allnotes = (id,newnote)=>({
+export const Allnotes = (id)=>({
     type:allNotes,
-    payload:{
-        id,
-        newnote   
-     }
+    payload:id  
+     
 })
 
 export const Newnotes = (id)=>({

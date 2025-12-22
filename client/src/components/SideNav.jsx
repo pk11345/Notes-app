@@ -37,7 +37,7 @@ const SideNav = () => {
             <GrNotes className=' text-xl'/>
             <h1 className=' text-xl' onClick={()=>{
                 
-                 dispatch(Allnotes("allnote",note))
+                 dispatch(Allnotes("allnote"))
              }} > All Notes </h1>
         </div>
 

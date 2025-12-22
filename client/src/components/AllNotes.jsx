@@ -7,7 +7,7 @@ const AllNotes = () => {
   const [editText, setEditText] = useState("")
   const [editId, setEditId] = useState(null)
   
-  const note = useSelector(state=>state.allNote.newnote)
+  // const note = useSelector(state=>state.allNote.newnote)
     
     
 
@@ -15,9 +15,12 @@ const AllNotes = () => {
       setEditText(text)
       setEditId(id)
     }
+
+    const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
+    console.log(savedNotes)
     const handleSave = ()=>{
      
-       const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
+       
         const Edited = savedNotes.find((notes)=>notes.id===editId)
         console.log(Edited.id,"editeed")
     
@@ -48,7 +51,7 @@ const AllNotes = () => {
       </div>
 
       
-      {note.map((t,index)=>{
+      {savedNotes.map((t,index)=>{
         return<> <div key={index} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
           {editId === t.id ? (
            <textarea

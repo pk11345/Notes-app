@@ -36,7 +36,7 @@ const NewNote = () => {
                 e.preventDefault()
                 // const updatedNote = [...note,]
                 // console.log(updatedNote)
-                console.log("dispatched", dispatch(Allnotes("",notes)))
+                // console.log("dispatched", dispatch(Allnotes("",notes)))
                 setNote("")
                 savedNotes.push(notes)
                 localStorage.setItem("newNotes", JSON.stringify(savedNotes));
