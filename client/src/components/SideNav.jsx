@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { GrNotes } from "react-icons/gr";
 import { FaRegHeart } from "react-icons/fa";
@@ -6,23 +6,47 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegFolder } from "react-icons/fa6";
 import { Link, useLocation } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
-import AllNotes from './AllNotes';
+
 import { Allnotes, Newnotes } from '../redux/action';
 
+
 const SideNav = () => {
+      const [user, setUser] = useState(null);
 
     const note = useSelector(state=>state.allNote.newnote)
     console.log(note)
     const dispatch = useDispatch()
 
+    useEffect(() => {
+    const loggedUser = JSON.parse(
+      localStorage.getItem("currentUser")
+    );
+    setUser(loggedUser);
+  }, []);
+
   return (
     <>
-    <div className='w-[25%] border-[1px] border-white rounded-lg flex flex-col justify-between p-3 gap-4'>
+    <div className='w-[25%] border-[1px] border-white rounded-lg sticky top-3 
+     flex flex-col justify-between p-3 gap-3 '>
 
         <div className='flex flex-col'>
-            <h1 className='text-white text-xl text-bold'>username</h1>
-            <h2 className='text-white/30 '>1234@exmple.com</h2>
-        </div>
+            <h1 className='text-white text-xl font-bold'>
+                {user?.name || "Guest"}
+            </h1>
+            <h2 className='text-white/30'>
+                {user?.email || ""}
+            </h2>
+            </div>
+            <button
+                onClick={() => {
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "/login";
+                }}
+                className='bg-red-500 text-white text-md p-2 rounded-lg w-[100%]'
+                >
+                Logout
+                </button>
+
         
             <div className="searchbar flex bg-slate-800/40 w-[100%] p-2 items-center gap-2 rounded-lg">
                 <IoMdSearch className='text-white text-xl'/>

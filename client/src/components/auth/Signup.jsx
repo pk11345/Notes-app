@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from "react-toastify";
 
 const Signup = () => {
 
@@ -13,12 +14,48 @@ const Signup = () => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
   
   
-    const handleSubmit =(e)=>{
-      e.preventDefault()
-      setEmail("")
-      setPassword("")
-      setName("")
-    }
+   const handleSubmit = (e) => {
+  e.preventDefault();
+
+  // stop if validation errors exist
+  if (error || passerror) {
+    toast.error("Fix errors before submitting");
+    return;
+  }
+
+  const newUser = {
+    name,
+    email,
+    password,
+  };
+
+  // get existing users
+  const existingUsers =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+  // check duplicate email
+  const emailExists = existingUsers.some(
+    (user) => user.email === email
+  );
+
+  if (emailExists) {
+    toast.error("Email already registered");
+    return;
+  }
+
+  // save user
+  const updatedUsers = [...existingUsers, newUser];
+  localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+  toast.success("Account created successfully 🎉");
+
+  // clear form
+  setName("");
+  setEmail("");
+  setPassword("");
+};
+
+
 
   return (
     <>

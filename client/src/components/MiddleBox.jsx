@@ -13,7 +13,7 @@ const MiddleBox = () => {
 
   return (
    <>
-       <div className='w-[40%] border-[1px] border-white rounded-lg p-3'>
+       <div className='w-[40%] border-[1px] border-white rounded-lg p-3 overflow-y-auto scrollbar-hide ' >
          {allnote.id==="allnote"?  <>
          <AllNotes/>
          </>:"" || newnote==="newnote"? <>

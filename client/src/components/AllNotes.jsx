@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { summarizeBtn } from '../redux/action';
+import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 const AllNotes = () => {
 
   const [notes, setNotes] = useState([]);
   const [editText, setEditText] = useState("")
   const [editId, setEditId] = useState(null)
+  const [favourite, setFavourite] = useState(false)
   
-  // const note = useSelector(state=>state.allNote.newnote)
+
+  const dispatch = useDispatch()
+
     
     useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("newNotes")) || [];
@@ -63,6 +69,15 @@ const AllNotes = () => {
       
       {notes.map((t,index)=>{
         return<> <div key={index} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
+          <div >
+            <FaRegStar onClick={()=>{setFavourite(true)}}
+             className={` ${favourite==true? "hidden" :"text-white text-xl"}`}
+            
+            />
+            <FaStar  onClick={()=>{setFavourite(false)}}
+             className={` ${favourite==false? "hidden" :"text-yellow-400 text-xl"}`}/>
+
+          </div>
           {editId === t.id ? (
            <textarea
              value={editText}
@@ -87,7 +102,10 @@ const AllNotes = () => {
 
           :<>
           <div className='flex  justify-end gap-2'>
-          <button className='text-black bg-white p-1 rounded-lg text-sm'>Summarize</button>
+          <button onClick={()=>{
+            dispatch(summarizeBtn(t.note))
+          }}
+           className='text-black bg-white p-1 rounded-lg text-sm'>Summarize</button>
 
           <button onClick={() => handleDelete(t.id)} 
            className='text-black bg-white p-1 rounded-lg text-sm'>Delete</button>

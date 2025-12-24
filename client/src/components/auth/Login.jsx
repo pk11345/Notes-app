@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
 
@@ -7,17 +9,56 @@ const Login = () => {
   const [error, setError] = useState("")
   const [passerror, setPassError] = useState("")
 
+  const navigate = useNavigate()
+
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
   const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
 
-  const handleSubmit =(e)=>{
-    e.preventDefault()
-    setEmail("")
-    setPassword("")
+ const handleSubmit = (e) => {
+  e.preventDefault();
+
+  if (error || passerror) {
+    toast.error("Fix errors before submitting");
+    return;
   }
-console.log(email)
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const foundUser = users.find(
+    (user) => user.email === email
+  );
+
+  if (!foundUser) {
+    toast.error("User not found. Please sign up first.");
+    return;
+  }
+
+  if (foundUser.password !== password) {
+    toast.error("Incorrect password");
+    return;
+  }
+
+  // save logged-in user
+  localStorage.setItem(
+    "currentUser",
+    JSON.stringify(foundUser)
+  );
+
+  toast.success("Login successful 🎉");
+
+  // navigate after slight delay (better UX)
+  setTimeout(() => {
+    navigate("/dashboard");
+  }, 1200);
+
+  setEmail("");
+  setPassword("");
+};
+
+// console.log(email)
 
   return (
     <>
