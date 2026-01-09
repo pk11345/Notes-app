@@ -7,7 +7,7 @@ import { FaRegFolder } from "react-icons/fa6";
 import { Link, useLocation } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
 
-import { Allnotes, Newnotes } from '../redux/action';
+import { Allnotes, Favourites, Newnotes } from '../redux/action';
 
 
 const SideNav = () => {
@@ -68,8 +68,13 @@ const SideNav = () => {
 
         <div className='flex gap-2 items-center cursor-pointer hover:bg-blue-500/40 p-2 rounded-md
         text-white hover:text-blue-400 '>
-            <FaRegHeart className=' text-xl'/>
-            <h1 className=' text-xl'>Favourites</h1>
+            <FaRegHeart className=' text-xl'
+            />
+            <h1 className=' text-xl'  onClick={()=>{
+                
+                 "dispathced",dispatch(Favourites("Fav"))
+             }}
+            >Favourites</h1>
         </div>
 
         <div className='flex gap-2 items-center cursor-pointer hover:bg-blue-500/40 p-2 rounded-md

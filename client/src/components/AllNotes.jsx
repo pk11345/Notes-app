@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useDispatch } from 'react-redux';
-import { summarizeBtn } from '../redux/action';
+import {summarizeBtn } from '../redux/action';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
@@ -15,11 +15,14 @@ const AllNotes = () => {
 
   const dispatch = useDispatch()
 
-    
+    // const saved = JSON.parse(localStorage.getItem("newNotes")) || [];
+
     useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("newNotes")) || [];
     setNotes(saved);
     }, []);
+
+    
 
     const handleEdit =(id,text)=>{
       setEditText(text)
@@ -29,16 +32,18 @@ const AllNotes = () => {
     
     
     const handleSave = ()=>{
-        const Edited = saved.find((notes)=>notes.id===editId)
+        const Edited = notes.find((notes)=>notes.id===editId)
         console.log(Edited.id,"editeed")
     
-       const updatenote = saved.map((item)=>{
+       const updatenote = notes.map((item)=>{
         return item.id===Edited.id ? {...item, note:editText} : item
        })
     
        localStorage.setItem("newNotes",JSON.stringify(updatenote))
 
        setEditId("")
+       setNotes(updatenote)
+       window.location.reload()
       }
 
         const handleDelete = (id) => {
@@ -48,6 +53,17 @@ const AllNotes = () => {
          localStorage.setItem("newNotes",JSON.stringify(dltNotes))
             window.location.reload()
             };
+
+            const handleFavourite =(id)=>{
+            
+              const AddFav = notes.find((notes)=>notes.id===id)
+              const updateFav = notes.map((item)=>{
+                return item.id===AddFav.id?{...item,isFavourite:favourite}:item
+              })
+              setNotes(updateFav)
+               localStorage.setItem("newNotes",JSON.stringify(updateFav))
+              //  window.location.reload()
+            }
 
   return (
     <>
@@ -70,12 +86,21 @@ const AllNotes = () => {
       {notes.map((t,index)=>{
         return<> <div key={index} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
           <div >
-            <FaRegStar onClick={()=>{setFavourite(true)}}
-             className={` ${favourite==true? "hidden" :"text-white text-xl"}`}
-            
-            />
-            <FaStar  onClick={()=>{setFavourite(false)}}
-             className={` ${favourite==false? "hidden" :"text-yellow-400 text-xl"}`}/>
+            {t.isFavourite ? (
+                <FaStar
+                  onClick={() =>{ handleFavourite(t.id)
+                    setFavourite(false)
+                  }}
+                  className="text-yellow-400 text-xl cursor-pointer"
+                />
+              ) : (
+                <FaRegStar
+                  onClick={() => {handleFavourite(t.id)
+                    setFavourite(true)
+                  }}
+                  className="text-white text-xl cursor-pointer"
+                />
+              )}
 
           </div>
           {editId === t.id ? (

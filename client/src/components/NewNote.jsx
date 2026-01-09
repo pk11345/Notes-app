@@ -9,7 +9,8 @@ const NewNote = () => {
 
   const notes={
     id:Math.random(),
-    note:note
+    note:note,
+    isFavourite:false
   }
   
  const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];

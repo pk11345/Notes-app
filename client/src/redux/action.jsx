@@ -1,6 +1,7 @@
 export const allNotes = "allNotes"
 export const NewNotes = "NewNotes"
 export const Summarize = "Summarize"
+export const Fav ="Fav"
 
 export const Allnotes = (id)=>({
     type:allNotes,
@@ -16,4 +17,9 @@ export const Newnotes = (id)=>({
 export const summarizeBtn = (note)=>({
     type:Summarize,
     payload:note
+})
+
+export const Favourites= (id)=>({
+    type:Fav,
+    payload:id
 })

@@ -1,4 +1,4 @@
-import { allNotes, NewNotes, Summarize } from "./action";
+import { allNotes,Fav,NewNotes, Summarize } from "./action";
 
 const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
 // console.log(savedNotes,"no map")
@@ -6,13 +6,13 @@ const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
 
 
 const initialState = {
-    allNote : {
-        id:"",
-        newnote:savedNotes
-    },
+    allNote :"", 
+       
+     
     newNote : "",
 
-    summarizeNote:""
+    summarizeNote:"",
+   fav:""
 }
 
 export const reducer = (state=initialState, action)=>{
@@ -21,7 +21,8 @@ export const reducer = (state=initialState, action)=>{
             return {
                 ...state ,
                 allNote:action.payload,
-                newNote:""
+                newNote:"",
+                fav:""
             }
 
             break;
@@ -31,11 +32,8 @@ export const reducer = (state=initialState, action)=>{
             return {
                 ...state ,
                 newNote:action.payload,
-                allNote:{
-                    id:"",
-                    newnote:savedNotes
-                },
-                
+                allNote:"",
+                fav:""
             }
 
             break;
@@ -46,7 +44,15 @@ export const reducer = (state=initialState, action)=>{
                 ...state,
                 summarizeNote:action.payload
             }
-    
+
+            case Fav:
+            return {
+                ...state ,
+                fav:action.payload,
+                newNote:"",
+                allNote:"",
+            }
+
         default:
             return state
             break;
