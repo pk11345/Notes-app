@@ -17,12 +17,11 @@ const SideNav = () => {
     console.log(note)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-    const loggedUser = JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-    setUser(loggedUser);
-  }, []);
+     const loggedIn = useSelector((state)=>state.loggedIn)
+      console.log(loggedIn)
+       useEffect(()=>{
+        setUser(loggedIn)
+       },[user])
 
   return (
     <>

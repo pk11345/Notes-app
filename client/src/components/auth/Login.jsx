@@ -17,9 +17,7 @@ const Login = () => {
   
   const loggedInError = useSelector((state)=>state.loggedInError)
 
-  const loggedIn = useSelector((state)=>state.loggedIn)
-  console.log(loggedIn)
-
+  const passwordError = useSelector((state)=>state.passwordError)
 
   const LoggedInData = {
     email:email,
@@ -49,9 +47,15 @@ const Login = () => {
     toast.error("user not present")
   }
   },[loggedInError])
-  
+
   useEffect(()=>{
-     if(loggedInError==false){
+    if(passwordError){
+      toast.error("wrong password")
+    }
+  },[passwordError])
+
+  useEffect(()=>{
+     if(loggedInError==false && passwordError==false){
     toast.success("Logged In")
     setTimeout(()=>{
       navigate("/dashboard")

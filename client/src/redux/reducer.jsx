@@ -12,7 +12,8 @@ const initialState = {
     summarizeNote:"",
     fav:"",
     loggedInError:null,
-    loggedIn:null
+    loggedIn:JSON.parse(localStorage.getItem("currentUser"))||[],
+    passwordError:null
 }
 
 export const reducer = (state=initialState, action)=>{
@@ -40,19 +41,29 @@ export const reducer = (state=initialState, action)=>{
             const user = state.newUser.find((user)=>{
                 return user.email==action.payload.email
             })
+            
             if(!user){
                 return {
                     ...state,
                     loggedInError:true,
-                    loggedIn:null
+                    loggedIn:[]
                 }
             }
+             if(user.password!==action.payload.password){
+                return {
+                    ...state,
+                    passwordError:true
+                }
+             }
+            localStorage.setItem("currentUser", JSON.stringify(user))
 
             return{
                 ...state,
                 loggedIn:user,
-                loggedInError:false
+                loggedInError:false,
+                passwordError:false
             }
+            
             break;
           
 
