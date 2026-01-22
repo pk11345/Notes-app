@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 import { IoMdArrowDropdown } from 'react-icons/io'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Allnotes} from '../redux/action'
 
 const NewNote = () => {
 
   const [note, setNote] = useState("")
-  const [category, setCategory] = useState(false)
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [category, setCategory] = useState("Select Category");
+
+  const userLoggedIn = useSelector((state)=>state.loggedIn.id)
+  
 
   const notes={
+    userLoggedIn:userLoggedIn,
     id:Math.random(),
     note:note,
+    category:category,
     isFavourite:false
   }
   
@@ -34,26 +40,37 @@ const NewNote = () => {
              className='bg-transparent w-full text-white p-3 text-sm font-semibold outline-none'
               name="newnote" id="" placeholder='Enter new note'></textarea>
 
-               <button onClick={()=>{setCategory(true)}}
-                 className='text-black w-[40%] bg-white p-1 rounded-lg text-sm flex justify-between
-                items-center gap-1'>
-                          Categories
-              
-                          <IoMdArrowDropdown className={` text-xl text-black
-                           ${category?" rotate-180 ":" rotate-0"}` }
-                          
-                           />
-                          
-              
-                          </button>
-                          <div className='w-full'>
-                          {category?<>
-                          <ul className='text-white  bg-black absolute'>
-                            <li>Work</li>
-                            <li>Ideas</li>
-                            <li>Personal</li>
+               <div className="relative w-[40%]">
+                  <button
+                    onClick={() => setCategoryOpen(prev => !prev)}
+                    className="text-black w-full bg-white p-1 rounded-lg text-sm flex justify-between items-center"
+                  >
+                    {category}
+                    <IoMdArrowDropdown
+                      className={`text-xl transition-transform ${
+                        categoryOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                    />
+                  </button>
+
+                    {categoryOpen && (
+                      <ul className="absolute mt-1 w-full bg-black text-white rounded-lg shadow-lg z-10">
+                       {["Work", "Ideas", "Personal"].map((item) => (
+                        <li
+                          key={item}
+                          onClick={() => {
+                          setCategory(item);
+                          setCategoryOpen(false);
+                            }}
+                          className="p-2 hover:bg-white hover:text-black cursor-pointer"
+                            >
+                            {item}
+                            </li>
+                            ))}
                           </ul>
-                          </>:""}</div>
+                        )}
+                        </div>
+
               <button onClick={(e)=>{
                 e.preventDefault()
                 // const updatedNote = [...note,]

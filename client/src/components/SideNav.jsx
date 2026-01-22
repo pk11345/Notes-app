@@ -7,11 +7,14 @@ import { FaRegFolder } from "react-icons/fa6";
 import { Link, useLocation } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
 
-import { Allnotes, Favourites, Newnotes } from '../redux/action';
+import { Allnotes, Favourites, Newnotes, toggleBtns } from '../redux/action';
 
 
 const SideNav = () => {
       const [user, setUser] = useState(null);
+      const [toggleBtn, setToggleBtn] = useState(null)
+
+      
 
     const note = useSelector(state=>state.allNote.newnote)
     console.log(note)
@@ -22,6 +25,10 @@ const SideNav = () => {
        useEffect(()=>{
         setUser(loggedIn)
        },[user])
+
+       useEffect(()=>{
+        dispatch(toggleBtns(toggleBtn))
+       })
 
   return (
     <>
@@ -59,8 +66,8 @@ const SideNav = () => {
          text-white hover:text-blue-400'>
             <GrNotes className=' text-xl'/>
             <h1 className=' text-xl' onClick={()=>{
+                setToggleBtn("allnote")
                 
-                 dispatch(Allnotes("allnote"))
              }} > All Notes </h1>
         </div>
 
@@ -70,8 +77,8 @@ const SideNav = () => {
             <FaRegHeart className=' text-xl'
             />
             <h1 className=' text-xl'  onClick={()=>{
-                
-                 "dispathced",dispatch(Favourites("Fav"))
+                setToggleBtn("fav")
+                 
              }}
             >Favourites</h1>
         </div>
@@ -79,7 +86,11 @@ const SideNav = () => {
         <div className='flex gap-2 items-center cursor-pointer hover:bg-blue-500/40 p-2 rounded-md
          text-white hover:text-blue-400'>
             <FaRegTrashCan className='text-xl'/>
-            <h1 className=' text-xl'>Trash</h1>
+            <h1 className=' text-xl'
+            onClick={()=>{
+                setToggleBtn("trash")
+            }}
+            >Trash</h1>
         </div>
        </div>
 
@@ -106,8 +117,8 @@ const SideNav = () => {
        </div>
        <div className=''>
         <button  onClick={()=>{
-                
-                 dispatch(Newnotes("newnote"))
+                setToggleBtn("newNote")
+                 
              }}
          className='bg-blue-400 text-white text-xl p-2 rounded-lg w-[100%] '>
             New Note</button>

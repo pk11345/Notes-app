@@ -4,7 +4,13 @@ export const Summarize = "Summarize"
 export const Fav ="Fav"
 export const createUser = "createUser"
 export const checkLogin = "checkLogin"
+export const toggleNavBtn = "toggleNavBtn"
 
+
+export const toggleBtns = (value)=>({
+    type:toggleNavBtn,
+    payload:value
+})
 
 export const createNewUser=(newUser)=>({
     type:createUser,
@@ -16,23 +22,10 @@ export const loginCheck = (loggedIn)=>({
     payload:loggedIn
 })
 
-export const Allnotes = (id)=>({
-    type:allNotes,
-    payload:id  
-     
-})
 
-export const Newnotes = (id)=>({
-    type:NewNotes,
-    payload:id
-})
 
 export const summarizeBtn = (note)=>({
     type:Summarize,
     payload:note
 })
 
-export const Favourites= (id)=>({
-    type:Fav,
-    payload:id
-})

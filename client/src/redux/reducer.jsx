@@ -1,4 +1,4 @@
-import { allNotes,checkLogin,createUser,Fav,NewNotes, Summarize } from "./action";
+import { allNotes,checkLogin,createUser,Fav,NewNotes, Summarize, toggleNavBtn } from "./action";
 
 // const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
 // console.log(savedNotes,"no map")
@@ -7,10 +7,10 @@ import { allNotes,checkLogin,createUser,Fav,NewNotes, Summarize } from "./action
 
 const initialState = {
     newUser:JSON.parse(localStorage.getItem("users")) || [],
-    allNote :"", 
-    newNote : "",
+    
     summarizeNote:"",
-    fav:"",
+    
+    toggleButton:null,
     loggedInError:null,
     loggedIn:JSON.parse(localStorage.getItem("currentUser"))||[],
     passwordError:null
@@ -66,28 +66,14 @@ export const reducer = (state=initialState, action)=>{
             
             break;
           
+            case toggleNavBtn:
+                return {
+                    ...state,
+                    toggleButton:action.payload
+                }
+                break;
 
         
-        case allNotes:
-            return {
-                ...state ,
-                allNote:action.payload,
-                newNote:"",
-                fav:""
-            }
-
-            break;
-
-            case NewNotes:
-
-            return {
-                ...state ,
-                newNote:action.payload,
-                allNote:"",
-                fav:""
-            }
-
-            break;
 
             case Summarize:
 
@@ -96,14 +82,7 @@ export const reducer = (state=initialState, action)=>{
                 summarizeNote:action.payload
             }
 
-            case Fav:
-            return {
-                ...state ,
-                fav:action.payload,
-                newNote:"",
-                allNote:"",
-            }
-
+            
         default:
             return state
             break;

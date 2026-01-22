@@ -10,13 +10,13 @@ const Favourites = () => {
    },[])
 //    console.log(notes)
 
-const favouriteNotes = notes.filter(note => note.isFavourite === true);
+// const favouriteNotes = notes.filter(note => note.isFavourite === true);
 
    return (
     <>
       <h1 className='text-white text-xl mb-4'>Favourites</h1>
 
-      {favouriteNotes.length === 0 ? (
+      {/* {favouriteNotes.length === 0 ? (
         <p className='text-white'>No Favourite Found</p>
       ) : (
         favouriteNotes.map((t) => (
@@ -29,7 +29,7 @@ const favouriteNotes = notes.filter(note => note.isFavourite === true);
             </h1>
           </div>
         ))
-      )}
+      )} */}
     </>
   );
 }
