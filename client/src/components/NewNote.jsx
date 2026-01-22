@@ -6,6 +6,7 @@ import { Allnotes} from '../redux/action'
 const NewNote = () => {
 
   const [note, setNote] = useState("")
+  const [category, setCategory] = useState(false)
 
   const notes={
     id:Math.random(),
@@ -33,6 +34,26 @@ const NewNote = () => {
              className='bg-transparent w-full text-white p-3 text-sm font-semibold outline-none'
               name="newnote" id="" placeholder='Enter new note'></textarea>
 
+               <button onClick={()=>{setCategory(true)}}
+                 className='text-black w-[40%] bg-white p-1 rounded-lg text-sm flex justify-between
+                items-center gap-1'>
+                          Categories
+              
+                          <IoMdArrowDropdown className={` text-xl text-black
+                           ${category?" rotate-180 ":" rotate-0"}` }
+                          
+                           />
+                          
+              
+                          </button>
+                          <div className='w-full'>
+                          {category?<>
+                          <ul className='text-white  bg-black absolute'>
+                            <li>Work</li>
+                            <li>Ideas</li>
+                            <li>Personal</li>
+                          </ul>
+                          </>:""}</div>
               <button onClick={(e)=>{
                 e.preventDefault()
                 // const updatedNote = [...note,]

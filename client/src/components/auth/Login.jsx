@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { loginCheck } from '../../redux/action';
 
 const Login = () => {
 
@@ -10,7 +12,19 @@ const Login = () => {
   const [passerror, setPassError] = useState("")
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  
+  
+  const loggedInError = useSelector((state)=>state.loggedInError)
 
+  const loggedIn = useSelector((state)=>state.loggedIn)
+  console.log(loggedIn)
+
+
+  const LoggedInData = {
+    email:email,
+    password:password
+  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
   const passwordRegex =
@@ -19,46 +33,32 @@ const Login = () => {
 
  const handleSubmit = (e) => {
   e.preventDefault();
+  dispatch(loginCheck(LoggedInData))
 
-  if (error || passerror) {
-    toast.error("Fix errors before submitting");
-    return;
+  
+ 
+  if(loggedInError==false){
+    navigate("/dashboard")
   }
-
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-
-  const foundUser = users.find(
-    (user) => user.email === email
-  );
-
-  if (!foundUser) {
-    toast.error("User not found. Please sign up first.");
-    return;
-  }
-
-  if (foundUser.password !== password) {
-    toast.error("Incorrect password");
-    return;
-  }
-
-  // save logged-in user
-  localStorage.setItem(
-    "currentUser",
-    JSON.stringify(foundUser)
-  );
-
-  toast.success("Login successful 🎉");
-
-  // navigate after slight delay (better UX)
-  setTimeout(() => {
-    navigate("/dashboard");
-  }, 1200);
-
   setEmail("");
   setPassword("");
 };
 
-// console.log(email)
+ useEffect(()=>{
+     if(loggedInError==true){
+    toast.error("user not present")
+  }
+  },[loggedInError])
+  
+  useEffect(()=>{
+     if(loggedInError==false){
+    toast.success("Logged In")
+    setTimeout(()=>{
+      navigate("/dashboard")
+    },[2000])
+  }
+  },[loggedInError])
+
 
   return (
     <>

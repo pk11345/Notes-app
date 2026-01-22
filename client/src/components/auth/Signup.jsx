@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from "react-toastify";
+import {useDispatch} from 'react-redux'
+import { createNewUser } from '../../redux/action';
 
 const Signup = () => {
 
@@ -8,46 +10,59 @@ const Signup = () => {
     const [name, setName] = useState("")
     const [error, setError] = useState("")
     const [passerror, setPassError] = useState("")
+
+    const dispatch = useDispatch()
+
+     const newUser ={
+      id:Date.now(),
+      name:name,
+      email:email,
+      password:password,
+    }
   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
     const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
+   
   
   
    const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    dispatch(createNewUser(newUser))
+
 
   // stop if validation errors exist
-  if (error || passerror) {
-    toast.error("Fix errors before submitting");
-    return;
-  }
+  // if (error || passerror) {
+  //   toast.error("Fix errors before submitting");
+  //   return;
+  // }
 
-  const newUser = {
-    name,
-    email,
-    password,
-  };
+  // const newUser = {
+  //   name,
+  //   email,
+  //   password,
+  // };
 
   // get existing users
-  const existingUsers =
-    JSON.parse(localStorage.getItem("users")) || [];
+  // const existingUsers =
+  //   JSON.parse(localStorage.getItem("users")) || [];
 
   // check duplicate email
-  const emailExists = existingUsers.some(
-    (user) => user.email === email
-  );
+  // const emailExists = existingUsers.some(
+  //   (user) => user.email === email
+  // );
 
-  if (emailExists) {
-    toast.error("Email already registered");
-    return;
-  }
+  // if (emailExists) {
+  //   toast.error("Email already registered");
+  //   return;
+  // }
 
   // save user
-  const updatedUsers = [...existingUsers, newUser];
-  localStorage.setItem("users", JSON.stringify(updatedUsers));
+  // const updatedUsers = [...existingUsers, newUser];
+  // localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-  toast.success("Account created successfully 🎉");
+  // toast.success("Account created successfully 🎉");
 
   // clear form
   setName("");
