@@ -1,19 +1,22 @@
-import { allNotes,checkLogin,createUser,Fav,NewNotes, Summarize, toggleNavBtn } from "./action";
+import { addedNotes, checkLogin,createUser,editNotes,Summarize, toggleNavBtn } from "./action";
 
-// const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
-// console.log(savedNotes,"no map")
+
 
 
 
 const initialState = {
     newUser:JSON.parse(localStorage.getItem("users")) || [],
-    
-    summarizeNote:"",
-    
-    toggleButton:null,
     loggedInError:null,
     loggedIn:JSON.parse(localStorage.getItem("currentUser"))||[],
-    passwordError:null
+    passwordError:null,
+    summarizeNote:"",
+    addedNote: JSON.parse(localStorage.getItem("notes")) || [],
+    toggleButton:null,
+    
+    editedNote:{
+        editedId:null,
+        editedText:null,
+    }
 }
 
 export const reducer = (state=initialState, action)=>{
@@ -73,7 +76,31 @@ export const reducer = (state=initialState, action)=>{
                 }
                 break;
 
-        
+            case addedNotes:
+                const updatedNote=[...state.addedNote,action.payload]
+                localStorage.setItem("notes", JSON.stringify((updatedNote)))
+                return {
+                    ...state,
+                    addedNote:updatedNote
+                }
+                break;
+
+            case editNotes:
+                const EditId = state.addedNote.find((id)=>{
+                    return id.id==action.payload.editedId
+                })
+                console.log(EditId,"hello id")
+
+                const updateNote = state.addedNote.map((id)=>{
+                    return id.id==action.payload.editedId?{...id,note:action.payload.editedText}:id
+                })
+                console.log(updateNote)
+                localStorage.setItem("notes",JSON.stringify(updateNote))
+                return{
+                    ...state,
+                    addedNote:updateNote
+                }
+                break;    
 
             case Summarize:
 

@@ -7,7 +7,7 @@ import { FaRegFolder } from "react-icons/fa6";
 import { Link, useLocation } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
 
-import { Allnotes, Favourites, Newnotes, toggleBtns } from '../redux/action';
+import { toggleBtns } from '../redux/action';
 
 
 const SideNav = () => {
@@ -16,19 +16,18 @@ const SideNav = () => {
 
       
 
-    const note = useSelector(state=>state.allNote.newnote)
-    console.log(note)
+   
     const dispatch = useDispatch()
 
      const loggedIn = useSelector((state)=>state.loggedIn)
       console.log(loggedIn)
        useEffect(()=>{
         setUser(loggedIn)
-       },[user])
+       },[loggedIn])
 
        useEffect(()=>{
         dispatch(toggleBtns(toggleBtn))
-       })
+       },[toggleBtn,dispatch])
 
   return (
     <>
@@ -115,10 +114,10 @@ const SideNav = () => {
             <h1 className=' text-xl'>Ideas</h1>
         </div>
        </div>
+
        <div className=''>
         <button  onClick={()=>{
                 setToggleBtn("newNote")
-                 
              }}
          className='bg-blue-400 text-white text-xl p-2 rounded-lg w-[100%] '>
             New Note</button>

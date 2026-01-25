@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
-import { Allnotes} from '../redux/action'
+import { addNotes } from '../redux/action'
+
 
 const NewNote = () => {
 
@@ -10,6 +11,10 @@ const NewNote = () => {
   const [category, setCategory] = useState("Select Category");
 
   const userLoggedIn = useSelector((state)=>state.loggedIn.id)
+  const dispatch = useDispatch()
+
+  const not = useSelector((state)=>state.addedNote)
+  console.log(not,"notes")
   
 
   const notes={
@@ -19,10 +24,11 @@ const NewNote = () => {
     category:category,
     isFavourite:false
   }
+
   
  const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
 
-  const dispatch = useDispatch()
+  
 
   return (
     <>
@@ -73,13 +79,8 @@ const NewNote = () => {
 
               <button onClick={(e)=>{
                 e.preventDefault()
-                // const updatedNote = [...note,]
-                // console.log(updatedNote)
-                // console.log("dispatched", dispatch(Allnotes("",notes)))
                 setNote("")
-                savedNotes.push(notes)
-                localStorage.setItem("newNotes", JSON.stringify(savedNotes));
-                
+                dispatch(addNotes(notes))
               }} 
                className='text-black bg-white p-2 rounded-lg text-md'>Add</button>
             </div>

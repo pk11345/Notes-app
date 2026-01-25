@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useDispatch } from 'react-redux';
-import {summarizeBtn } from '../redux/action';
+import { useDispatch,useSelector } from 'react-redux';
+import {editNotesFunc, summarizeBtn } from '../redux/action';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
@@ -15,11 +15,11 @@ const AllNotes = () => {
 
   const dispatch = useDispatch()
 
-    // const saved = JSON.parse(localStorage.getItem("newNotes")) || [];
+    const savedNote = useSelector((state)=>state.addedNote)
 
     useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("newNotes")) || [];
-    setNotes(saved);
+   
+    setNotes(savedNote);
     }, []);
 
     
@@ -32,38 +32,30 @@ const AllNotes = () => {
     
     
     const handleSave = ()=>{
-        const Edited = notes.find((notes)=>notes.id===editId)
-        console.log(Edited.id,"editeed")
-    
-       const updatenote = notes.map((item)=>{
-        return item.id===Edited.id ? {...item, note:editText} : item
-       })
-    
-       localStorage.setItem("newNotes",JSON.stringify(updatenote))
-
-       setEditId("")
-       setNotes(updatenote)
+      
+      dispatch(editNotesFunc(editText,editId))
+      
        window.location.reload()
       }
 
-        const handleDelete = (id) => {
-         const dltNotes = notes.filter((item)=>{
-          return item.id!==id
-         })
-         localStorage.setItem("newNotes",JSON.stringify(dltNotes))
-            window.location.reload()
-            };
+        // const handleDelete = (id) => {
+        //  const dltNotes = notes.filter((item)=>{
+        //   return item.id!==id
+        //  })
+        //  localStorage.setItem("newNotes",JSON.stringify(dltNotes))
+        //     window.location.reload()
+        //     };
 
-            const handleFavourite =(id)=>{
+            // const handleFavourite =(id)=>{
             
-              const AddFav = notes.find((notes)=>notes.id===id)
-              const updateFav = notes.map((item)=>{
-                return item.id===AddFav.id?{...item,isFavourite:favourite}:item
-              })
-              setNotes(updateFav)
-               localStorage.setItem("newNotes",JSON.stringify(updateFav))
-              //  window.location.reload()
-            }
+            //   const AddFav = notes.find((notes)=>notes.id===id)
+            //   const updateFav = notes.map((item)=>{
+            //     return item.id===AddFav.id?{...item,isFavourite:favourite}:item
+            //   })
+            //   setNotes(updateFav)
+            //    localStorage.setItem("newNotes",JSON.stringify(updateFav))
+            //   //  window.location.reload()
+            // }
 
   return (
     <>
