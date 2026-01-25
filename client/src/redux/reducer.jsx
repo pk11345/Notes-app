@@ -1,4 +1,4 @@
-import { addedNotes, checkLogin,createUser,editNotes,Summarize, toggleNavBtn } from "./action";
+import { addedNotes, checkLogin,createUser,dltNotes,editNotes,Summarize, toggleNavBtn } from "./action";
 
 
 
@@ -16,7 +16,8 @@ const initialState = {
     editedNote:{
         editedId:null,
         editedText:null,
-    }
+    },
+    dltNoteId:null
 }
 
 export const reducer = (state=initialState, action)=>{
@@ -94,13 +95,25 @@ export const reducer = (state=initialState, action)=>{
                 const updateNote = state.addedNote.map((id)=>{
                     return id.id==action.payload.editedId?{...id,note:action.payload.editedText}:id
                 })
-                console.log(updateNote)
+                // console.log(updateNote)
                 localStorage.setItem("notes",JSON.stringify(updateNote))
                 return{
                     ...state,
                     addedNote:updateNote
                 }
-                break;    
+                break;
+
+            case dltNotes:
+                const deleteNote= state.addedNote.filter((note)=>{
+                    return note.id!== action.payload
+                })
+                console.log(deleteNote)
+                localStorage.setItem("notes", JSON.stringify(deleteNote))
+                return {
+                    ...state,
+                    dltNoteId:deleteNote
+                }
+                break;
 
             case Summarize:
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useDispatch,useSelector } from 'react-redux';
-import {editNotesFunc, summarizeBtn } from '../redux/action';
+import {dltNotesFunc, editNotesFunc, summarizeBtn } from '../redux/action';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
@@ -38,13 +38,10 @@ const AllNotes = () => {
        window.location.reload()
       }
 
-        // const handleDelete = (id) => {
-        //  const dltNotes = notes.filter((item)=>{
-        //   return item.id!==id
-        //  })
-        //  localStorage.setItem("newNotes",JSON.stringify(dltNotes))
-        //     window.location.reload()
-        //     };
+        const handleDelete = (id) => {
+          dispatch(dltNotesFunc(id))
+         window.location.reload()
+            };
 
             // const handleFavourite =(id)=>{
             

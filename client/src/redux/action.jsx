@@ -39,3 +39,8 @@ export const summarizeBtn = (note)=>({
     payload:note
 })
 
+
+export const dltNotesFunc = (id)=>({
+    type:dltNotes,
+    payload:id
+})
