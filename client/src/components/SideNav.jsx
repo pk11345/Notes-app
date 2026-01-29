@@ -4,7 +4,7 @@ import { GrNotes } from "react-icons/gr";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegFolder } from "react-icons/fa6";
-import { Link, useLocation } from 'react-router-dom';
+
 import {useDispatch, useSelector} from 'react-redux'
 
 import { toggleBtns } from '../redux/action';
@@ -20,7 +20,7 @@ const SideNav = () => {
     const dispatch = useDispatch()
 
      const loggedIn = useSelector((state)=>state.loggedIn)
-      console.log(loggedIn)
+    //   console.log(loggedIn.id)
        useEffect(()=>{
         setUser(loggedIn)
        },[loggedIn])
@@ -99,19 +99,28 @@ const SideNav = () => {
         <div className='flex gap-2 items-center cursor-pointer hover:bg-blue-500/40 p-2 rounded-md
          text-white hover:text-blue-400'>
             <FaRegFolder className='text-xl'/>
-            <h1 className=' text-xl'>Work</h1>
+            <h1 className=' text-xl'  onClick={()=>{
+                setToggleBtn("work")
+                
+             }}>Work</h1>
         </div>
 
         <div className='flex gap-2 items-center cursor-pointer hover:bg-blue-500/40 p-2 rounded-md
          text-white hover:text-blue-400'>
             <FaRegFolder className='text-xl'/>
-            <h1 className=' text-xl'>Personal</h1>
+            <h1 className=' text-xl' onClick={()=>{
+                setToggleBtn("personal")
+                
+             }}>Personal</h1>
         </div>
 
         <div className='flex gap-2 items-center cursor-pointer hover:bg-blue-500/40 p-2 rounded-md
          text-white hover:text-blue-400'>
             <FaRegFolder className='text-xl'/>
-            <h1 className=' text-xl'>Ideas</h1>
+            <h1 className=' text-xl' onClick={()=>{
+                setToggleBtn("ideas")
+                
+             }}>Ideas</h1>
         </div>
        </div>
 

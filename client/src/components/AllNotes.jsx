@@ -4,10 +4,11 @@ import { useDispatch,useSelector } from 'react-redux';
 import {dltNotesFunc, editNotesFunc, favNotesFunc, summarizeBtn } from '../redux/action';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const AllNotes = () => {
 
- 
+//  const [notes, setNotes] = useState([])
   const [editText, setEditText] = useState("")
   const [editId, setEditId] = useState(null)
 
@@ -15,7 +16,15 @@ const AllNotes = () => {
 
   const dispatch = useDispatch()
 
-    const notes = useSelector((state)=>state.addedNote)
+    const note = useSelector((state)=>state.addedNote)
+   
+    const loggedIn = useSelector((state)=>state.loggedIn)
+    
+    const notes = note.filter((t)=>{
+      return t.userLoggedIn==loggedIn.id
+    })
+
+   
 
     const handleEdit =(id,text)=>{
       setEditText(text)

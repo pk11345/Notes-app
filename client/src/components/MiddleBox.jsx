@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux'
 import AllNotes from './AllNotes'
 import NewNote from './NewNote'
 import Favourites from './Favourites'
+import Work from './categories/Work'
+import Personal from './categories/Personal'
+import Ideas from './categories/Ideas'
 
   const MiddleBox = () => {
     
@@ -16,6 +19,9 @@ import Favourites from './Favourites'
        <NewNote/>
        </>
        : toggleButton=="fav"? <><Favourites/></>
+       : toggleButton=="work"? <><Work/></>
+       : toggleButton=="personal"? <><Personal/></>
+       : toggleButton=="ideas"? <><Ideas/></>
        : <AllNotes/>
        }
     </div>

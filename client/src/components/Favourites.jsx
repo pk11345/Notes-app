@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { toast } from "react-toastify";
 
 const Favourites = () => {
+
+  
   
   const notes = useSelector((state)=>state.addedNote)
+  const noteId = notes.map((n)=>{
+        return n.userLoggedIn
+      })
 
-const favouriteNotes = notes.filter(note => note.isFavourite === true);
+      const loggedIn = useSelector((state)=>state.loggedIn)
+
+       const notesFilter = notes.filter((t)=>{
+        return t.userLoggedIn==loggedIn.id
+        })
+
+     
+      const favouriteNotes= notesFilter.filter(note => note.isFavourite === true);
+              
+           
+
+       
 
    return (
     <>
