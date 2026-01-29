@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const Favourites = () => {
-    const[notes, setNotes]=useState([])
-   
-   useEffect(()=>{
-    const storedNotes = JSON.parse(localStorage.getItem("newNotes"))
-    setNotes(storedNotes)
-   },[])
-//    console.log(notes)
+  
+  const notes = useSelector((state)=>state.addedNote)
 
-// const favouriteNotes = notes.filter(note => note.isFavourite === true);
+const favouriteNotes = notes.filter(note => note.isFavourite === true);
 
    return (
     <>
       <h1 className='text-white text-xl mb-4'>Favourites</h1>
 
-      {/* {favouriteNotes.length === 0 ? (
+      {favouriteNotes.length === 0 ? (
         <p className='text-white'>No Favourite Found</p>
       ) : (
         favouriteNotes.map((t) => (
@@ -29,7 +24,7 @@ const Favourites = () => {
             </h1>
           </div>
         ))
-      )} */}
+      )}
     </>
   );
 }

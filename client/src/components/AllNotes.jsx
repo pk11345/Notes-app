@@ -1,28 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useDispatch,useSelector } from 'react-redux';
-import {dltNotesFunc, editNotesFunc, summarizeBtn } from '../redux/action';
+import {dltNotesFunc, editNotesFunc, favNotesFunc, summarizeBtn } from '../redux/action';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
 const AllNotes = () => {
 
-  const [notes, setNotes] = useState([]);
+ 
   const [editText, setEditText] = useState("")
   const [editId, setEditId] = useState(null)
-  const [favourite, setFavourite] = useState(false)
+
   
 
   const dispatch = useDispatch()
 
-    const savedNote = useSelector((state)=>state.addedNote)
-
-    useEffect(() => {
-   
-    setNotes(savedNote);
-    }, []);
-
-    
+    const notes = useSelector((state)=>state.addedNote)
 
     const handleEdit =(id,text)=>{
       setEditText(text)
@@ -40,19 +33,10 @@ const AllNotes = () => {
 
         const handleDelete = (id) => {
           dispatch(dltNotesFunc(id))
-         window.location.reload()
+           window.location.reload()
             };
 
-            // const handleFavourite =(id)=>{
-            
-            //   const AddFav = notes.find((notes)=>notes.id===id)
-            //   const updateFav = notes.map((item)=>{
-            //     return item.id===AddFav.id?{...item,isFavourite:favourite}:item
-            //   })
-            //   setNotes(updateFav)
-            //    localStorage.setItem("newNotes",JSON.stringify(updateFav))
-            //   //  window.location.reload()
-            // }
+           
 
   return (
     <>
@@ -72,20 +56,18 @@ const AllNotes = () => {
       </div>
 
       
-      {notes.map((t,index)=>{
-        return<> <div key={index} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
+      {notes.map((t)=>{
+        return<> <div key={t.id} className='flex flex-col gap-3 border-2 border-white p-3 mt-8'>
           <div >
             {t.isFavourite ? (
                 <FaStar
-                  onClick={() =>{ handleFavourite(t.id)
-                    setFavourite(false)
+                  onClick={() =>{dispatch(favNotesFunc(t.id))
                   }}
                   className="text-yellow-400 text-xl cursor-pointer"
                 />
               ) : (
                 <FaRegStar
-                  onClick={() => {handleFavourite(t.id)
-                    setFavourite(true)
+                  onClick={() => {dispatch(favNotesFunc(t.id))
                   }}
                   className="text-white text-xl cursor-pointer"
                 />

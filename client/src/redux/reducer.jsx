@@ -1,4 +1,4 @@
-import { addedNotes, checkLogin,createUser,dltNotes,editNotes,Summarize, toggleNavBtn } from "./action";
+import { addedNotes, checkLogin,createUser,dltNotes,editNotes,favNotes,Summarize, toggleNavBtn } from "./action";
 
 
 
@@ -17,7 +17,8 @@ const initialState = {
         editedId:null,
         editedText:null,
     },
-    dltNoteId:null
+    dltNoteId:null,
+   
 }
 
 export const reducer = (state=initialState, action)=>{
@@ -111,7 +112,25 @@ export const reducer = (state=initialState, action)=>{
                 localStorage.setItem("notes", JSON.stringify(deleteNote))
                 return {
                     ...state,
-                    dltNoteId:deleteNote
+                    addedNote:deleteNote
+                }
+                break;
+
+            case favNotes:
+                const addfav = state.addedNote.find((note)=>{
+                    return note.id==action.payload
+                })
+                console.log(addfav)
+
+                const updateNot =state.addedNote.map((note)=>{
+                  return  note.id==action.payload?{...note,isFavourite:!note.isFavourite}
+                  : note
+                })
+                console.log(updateNot)
+                localStorage.setItem("notes", JSON.stringify(updateNot))
+                return{
+                    ...state,
+                    addedNote:updateNot
                 }
                 break;
 

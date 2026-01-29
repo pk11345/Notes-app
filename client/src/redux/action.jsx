@@ -5,6 +5,7 @@ export const Summarize = "Summarize"
 export const addedNotes = "addedNotes"
 export const dltNotes = "dltNotes"
 export const editNotes = "editNotes"
+export const favNotes ="favNotes"
 
 export const toggleBtns = (value)=>({
     type:toggleNavBtn,
@@ -42,5 +43,10 @@ export const summarizeBtn = (note)=>({
 
 export const dltNotesFunc = (id)=>({
     type:dltNotes,
+    payload:id
+})
+
+export const favNotesFunc =(id)=>({
+    type:favNotes,
     payload:id
 })
