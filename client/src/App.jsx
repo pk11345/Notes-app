@@ -25,7 +25,7 @@ const App = () => {
         theme="dark"
       />
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      {/* <Route path="/" element={<Navigate to="/login" replace />} /> */}
       <Route path="/" element={<AuthLayout />}>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
