@@ -9,6 +9,7 @@ import { IoMdMenu } from "react-icons/io";
 import {useDispatch, useSelector} from 'react-redux'
 
 import { toggleBtns } from '../redux/action';
+import { toast } from 'react-toastify';
 
 
 const SideNav = () => {
@@ -90,6 +91,7 @@ const SideNav = () => {
             <h1 className=' text-xl'
             onClick={()=>{
                 setToggleBtn("trash")
+                toast.error("currently this feature not in work")
             }}
             >Trash</h1>
         </div>
@@ -166,6 +168,7 @@ const SideNav = () => {
             <h1 className=' text-xl'
             onClick={()=>{
                 setToggleBtn("trash")
+                toast.error("currently this feature not in work")
             }}
             >Trash</h1>
         </div>
