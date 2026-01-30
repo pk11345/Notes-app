@@ -30,9 +30,11 @@ const Signup = () => {
    const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createNewUser(newUser))
+    
     setName("");
     setEmail("");
     setPassword("");
+    toast.success("user created")
    };
 
 

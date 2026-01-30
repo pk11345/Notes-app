@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNotes } from '../redux/action'
+import { toast } from 'react-toastify'
 
 
 const NewNote = () => {
@@ -26,7 +27,7 @@ const NewNote = () => {
   }
 
   
- const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
+//  const savedNotes = JSON.parse(localStorage.getItem("newNotes")) || [];
 
   
 
@@ -46,7 +47,7 @@ const NewNote = () => {
              className='bg-transparent w-full text-white p-3 text-sm font-semibold outline-none'
               name="newnote" id="" placeholder='Enter new note'></textarea>
 
-               <div className="relative w-[40%]">
+               <div className="md:relative w-[40%]">
                   <button
                     onClick={() => setCategoryOpen(prev => !prev)}
                     className="text-black w-full bg-white p-1 rounded-lg text-sm flex justify-between items-center"
@@ -60,7 +61,8 @@ const NewNote = () => {
                   </button>
 
                     {categoryOpen && (
-                      <ul className="absolute mt-1 w-full bg-black text-white rounded-lg shadow-lg z-10">
+                      <ul className="absolute mt-1 w-[40%] md:w-full hover:bg-gray-400
+                       bg-black text-white rounded-lg shadow-lg z-10">
                        {["Work", "Ideas", "Personal"].map((item) => (
                         <li
                           key={item}
@@ -81,6 +83,7 @@ const NewNote = () => {
                 e.preventDefault()
                 setNote("")
                 dispatch(addNotes(notes))
+                toast.success("notes added")
               }} 
                className='text-black bg-white p-2 rounded-lg text-md'>Add</button>
             </div>

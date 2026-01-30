@@ -53,7 +53,7 @@ const Recap = () => {
   };
 
   return (
-    <div className="md:w-[35%] w-full border border-white rounded-lg p-4 overflow-auto scrollbar-hide">
+    <div className="md:w-[35%] w-full border border-white rounded-lg p-4 overflow-x-hidden overflow-y-auto scrollbar-hide">
       <div className="w-full flex flex-col items-center gap-5">
         <h1 className="text-white text-xl font-bold italic">
           Summarize note using AI
@@ -63,11 +63,12 @@ const Recap = () => {
         <div className="flex flex-col gap-3 border-2 border-white p-3 w-full">
           <p className="text-white text-sm font-semibold">{note}</p>
 
+          {/* disabled:opacity-50 */}
           <button
             onClick={gemini}
             disabled={loading || !note}
-            className="bg-purple-600 text-white px-4 py-2 rounded disabled:opacity-50"
-          >
+            className="bg-purple-600 text-white px-4 py-2 rounded " 
+          >    
             {loading ? "Please wait..." : "Summarize"}
           </button>
         </div>

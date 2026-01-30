@@ -26,6 +26,7 @@ const Favourites = () => {
 
    return (
     <>
+    <div className=''>
       <h1 className='text-white text-xl mb-4'>Favourites</h1>
 
       {favouriteNotes.length === 0 ? (
@@ -42,6 +43,7 @@ const Favourites = () => {
           </div>
         ))
       )}
+      </div>
     </>
   );
 }

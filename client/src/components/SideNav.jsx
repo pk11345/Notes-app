@@ -135,7 +135,7 @@ const SideNav = () => {
         />
         
         {menu? <>
-        <div className='flex flex-col absolute left-0 top-0 z-50 gap-4 p-3 bg-gray-900
+        <div className='flex flex-col absolute left-0 top-0 z-[9999] gap-4 p-3 bg-gray-900
          w-[70%] min-h-screen'>
         <div className='space-y-3 mt-2 md:hidden flex flex-col  '>
 

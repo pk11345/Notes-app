@@ -7,7 +7,8 @@ import MiddleBox from './MiddleBox'
 const Dashboard = () => {
   return (
     <>
-    <div className='bg-slate-900 min-h-screen flex flex-col md:flex-row gap-4 p-2 md:p-3 overflow-y-auto'>
+    <div className='bg-slate-900 min-h-screen flex flex-col md:flex-row gap-4 p-2
+     md:p-3 overflow-x-hidden overflow-y-auto'>
       <SideNav/>
       <MiddleBox/>
       <Recap/>

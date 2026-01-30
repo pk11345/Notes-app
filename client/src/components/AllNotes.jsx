@@ -70,13 +70,17 @@ const AllNotes = () => {
           <div >
             {t.isFavourite ? (
                 <FaStar
-                  onClick={() =>{dispatch(favNotesFunc(t.id))
+                  onClick={() =>{
+                    dispatch(favNotesFunc(t.id))
+                    toast.success("removed from favourite ")
                   }}
                   className="text-yellow-400 text-xl cursor-pointer"
                 />
               ) : (
                 <FaRegStar
-                  onClick={() => {dispatch(favNotesFunc(t.id))
+                  onClick={() => {
+                    dispatch(favNotesFunc(t.id))
+                    toast.success("added to favourite")
                   }}
                   className="text-white text-xl cursor-pointer"
                 />
