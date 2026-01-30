@@ -54,7 +54,10 @@ const AllNotes = () => {
         <h1 className='text-white font-bold text-2xl'>All Notes</h1>
         <div className='flex gap-1'>
           <h2 className='text-white font-semibold text-lg '>Sort By:</h2>
-          <button className='text-black bg-white p-1 rounded-lg text-sm flex items-center gap-1'>
+          <button onClick={()=>{
+            toast.error("currently this feautre not on work")
+          }}
+           className='text-black bg-white p-1 rounded-lg text-sm flex items-center gap-1'>
             Date Modified
 
             <IoMdArrowDropdown className='text-black text-xl' />

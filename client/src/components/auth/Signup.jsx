@@ -93,7 +93,7 @@ const Signup = () => {
               setPassError("")
             }
             else{
-              setPassError("Enter Correct Format")
+              setPassError("Enter Correct Format, special character, one upper case, upto 8 character, no spaces")
             }
           }} value={password}
            className='p-2 bg-slate-800/70 rounded-lg placeholder:text-white
