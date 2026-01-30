@@ -53,7 +53,7 @@ const Recap = () => {
   };
 
   return (
-    <div className="w-[35%] border border-white rounded-lg p-4 overflow-auto scrollbar-hide">
+    <div className="md:w-[35%] w-full border border-white rounded-lg p-4 overflow-auto scrollbar-hide">
       <div className="w-full flex flex-col items-center gap-5">
         <h1 className="text-white text-xl font-bold italic">
           Summarize note using AI

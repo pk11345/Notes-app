@@ -14,7 +14,7 @@ const App = () => {
   
   return (
    <>
-  <div className="App">
+  <div className="App w-full min-h-screen bg-slate-900">
      <ToastContainer
         position="top-center"
         autoClose={2000}

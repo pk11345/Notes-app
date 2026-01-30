@@ -14,7 +14,7 @@ import Ideas from './categories/Ideas'
 
   return (
    <>
-    <div className='w-[40%] border-[1px] border-white rounded-lg p-3 overflow-y-auto scrollbar-hide ' >
+    <div className='md:w-[40%] wi-full border-[1px] border-white rounded-lg p-3 overflow-y-auto scrollbar-hide ' >
        {toggleButton=="newNote"? <>
        <NewNote/>
        </>
